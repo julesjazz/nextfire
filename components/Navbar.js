@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useContext } from 'react';
+import { UserContext } from '../lib/context';
 
 export default function Navbar() {
-  const user = null;
-  const username = null;
+  const { user, username } = useContext(UserContext);
 
+  // TODO: nextify images
   return (
     <nav className='navbar'>
       <ul>
@@ -24,7 +26,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link href={`/${username}`} passHref>
-                <Image src={user?.photoURL} alt={`/${username}`} />
+                <img src={user?.photoURL} alt={`user: ${username}`} />
               </Link>
             </li>
           </>
@@ -32,13 +34,13 @@ export default function Navbar() {
         {/* state 2: not signed in, no username */}
         {!username && (
           <li>
-          <Link href="/enter" passHref>
-            <button>Log in</button>
-          </Link>
-        </li>
+            <Link href="/enter" passHref>
+              <button className='btn-blue'>Log in</button>
+            </Link>
+          </li>
         )}
 
       </ul>
     </nav>
-  )
+  );
 }
