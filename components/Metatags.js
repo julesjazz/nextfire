@@ -1,9 +1,12 @@
 import Head from 'next/head';
 
+// SEO content
+// TODO: update tag properties
+
 export default function Metatags({
-  title = 'The Full Next.js + Firebase Course',
-  description = 'A complete Next.js + Firebase course by Fireship.io',
-  image = 'https://fireship.io/courses/react-next-firebase/img/featured.png',
+  title = 'nextfire',
+  description = 'nextjs + firebase',
+  image = 'https://drive.google.com/uc?export=view&id=1-VhEvqCviHNgbLdleSgxZYcXU3ptIcZO',
 }) {
   return (
     <Head>

@@ -113,3 +113,7 @@ example post:
     heartCount: 0,
 }
 ```
+
+
+## ISR Incremental static regeneration
+

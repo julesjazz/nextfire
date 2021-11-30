@@ -4,9 +4,12 @@ import { getUserWithUsername, postToJSON } from '../../lib/firebase';
 
 export async function getServerSideProps({ query }) {
   const { username } = query;
-
   // custom helper fn
   const userDoc = await getUserWithUsername(username);
+    // if no user, then 404
+    if (!userDoc) {
+      notFound: true,
+    }
   // serializable data
   let user = null;
   let posts = null;
