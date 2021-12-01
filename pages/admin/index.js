@@ -9,7 +9,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import kebabCase from 'lodash.kebabcase';
 import toast from 'react-hot-toast';
 
-export default function AdminPostsPage({}) {
+export default function AdminPostsPage(props) {
   return (
     <main>
       <AuthCheck>
@@ -17,13 +17,14 @@ export default function AdminPostsPage({}) {
         <CreateNewPost />
       </AuthCheck>
     </main>
-  )
+  );
 }
 
 function PostList() {
   const ref = firestore.collection('users').doc(auth.currentUser.uid).collection('posts');
   const query = ref.orderBy('createdAt');
   const [querySnapshot] = useCollection(query);
+
   // also see useCollectionData() hook
   const posts = querySnapshot?.docs.map((doc) => doc.data());
 
@@ -36,12 +37,13 @@ function PostList() {
 }
 
 function CreateNewPost() {
-  const router = useRouter(); // is this needed?
+  const router = useRouter(); // next router here?
   const { username } = useContext(UserContext);
   const [title, setTitle] = useState('');
 
   // ensure slug is url safe, kebob strips ?!/ chars
   const slug = encodeURI(kebabCase(title));
+
   // validate length 3-100 chars
   const isValid = title.length > 3 && title.length < 100;
 
@@ -58,14 +60,16 @@ function CreateNewPost() {
       uid,
       username,
       published: false,
-      content: '# hello world!',
+      content: '',
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       heartCount: 0,
     };
 
     await ref.set(data); // commit to firestore
+
     toast.success('Post created!')
+    
     // imparative nav after doc set
     router.push(`/admin/${slug}`);
   };
@@ -82,7 +86,7 @@ function CreateNewPost() {
         <strong>Slug:</strong> {slug}
       </p>
       <button type='submit' disabled={!isValid} className="btn-green">
-        Submit Post
+        Create Post
       </button>
     </form>
   );

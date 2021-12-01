@@ -28,10 +28,16 @@ function SignInButton() {
     }
   };
 
+  // TODO: optional anon sign-in?
   return (
+    <>
       <button className="btn-google" onClick={signInWithGoogle}>
         <img src={'/google.png'} width="30px" /> Sign in with Google
       </button>
+      <button onClick={() => auth.signInAnonymously()}>
+        Sign in Anonymously
+      </button>
+    </>
   );
 }
 
@@ -88,7 +94,7 @@ function UsernameForm() {
 
   useEffect(() => {
     checkUsername(formValue);
-  }, [formValue]); // TODO: linter update
+  }, [formValue]); 
 
   // Hit the database for username match after each debounced change
   // useCallback is required for debounce to work

@@ -3,6 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
 
+// TODO: move conf to env
 const firebaseConfig = {
   apiKey: "AIzaSyC_Uo5HMvrGLBnJ1HH1VTokjSMoFvczyHA",
   authDomain: "nextfire-jsjazz.firebaseapp.com",
@@ -15,7 +16,6 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-// firebase.initializeApp(firebaseConfig);
 
 // Auth exports
 export const auth = firebase.auth();
@@ -52,7 +52,7 @@ export function postToJSON(doc) {
   const data = doc.data();
   return {
     ...data,
-    // Gotcha! firestore timestamp NOT serializable to JSON. Must convert to milliseconds
+    // firestore timestamp NOT serializable to JSON. Must convert to milliseconds
     createdAt: data?.createdAt.toMillis() || 0,
     updatedAt: data?.updatedAt.toMillis() || 0,
   };
