@@ -84,11 +84,13 @@ function PostForm({ defaultValues, postRef, preview }) {
 
         <textarea
           name="content"
+          
           ref={register({
             maxLength: { value: 20000, message: 'content is too long' },
             minLength: { value: 10, message: 'content is too short' },
             required: { value: true, message: 'content is required' },
           })}
+          
         ></textarea>
 
         {errors.content && <p className="text-danger">{errors.content.message}</p>}

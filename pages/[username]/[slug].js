@@ -1,10 +1,14 @@
 import styles from '../../styles/Post.module.css';
 import PostContent from '../../components/PostContent';
+import AuthCheck from '../../components/AuthCheck';
+import Metatags from '../../components/Metatags';
 import { firestore, getUserWithUsername, postToJSON } from '../../lib/firebase';
-
+import { UserContext } from '../../lib/context';
 import Link from 'next/link';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { useContext } from 'react';
+import HeartButton from '../../components/HeartButton';
+
 
 export async function getStaticProps({ params }) {
   const { username, slug } = params;
@@ -38,10 +42,6 @@ export async function getStaticPaths() {
   });
 
   return {
-    // must be in this format:
-    // paths: [
-    //   { params: { username, slug }}
-    // ],
     paths,
     fallback: 'blocking',
   };
